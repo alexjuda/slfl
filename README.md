@@ -1,3 +1,3 @@
 # slot-machine
 
-Describe your project here.
+Local workflow engine with Human in the Loop.
