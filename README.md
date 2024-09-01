@@ -1,3 +1,3 @@
-# slot-machine
+# sfl
 
-Local workflow engine with Human in the Loop.
+Slot FLow. Local workflow engine with human-in-the-loop based on slot-filling.
