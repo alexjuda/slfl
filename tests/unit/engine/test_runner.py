@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 from pytest import fixture
 from .memory_fakes import DictMemory
-from slot_machine.engine._types import Task
-from slot_machine.engine._runner import Runner
+from sfl.engine._types import Task
+from sfl.engine._runner import Runner
 
 
 class TestRunner:
