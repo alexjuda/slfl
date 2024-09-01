@@ -1,5 +1,5 @@
-from slot_machine.engine._traversal import find_next_slot, iter_topo_sort
-from slot_machine.engine._types import SlotGraph
+from slfl.engine._traversal import find_next_slot, iter_topo_sort
+from slfl.engine._types import SlotGraph
 from .memory_fakes import DictMemory
 
 from pytest import fixture

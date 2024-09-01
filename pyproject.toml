@@ -1,7 +1,7 @@
 [project]
-name = "slot-machine"
+name = "slfl"
 version = "0.1.0"
-description = "Add your description here"
+description = "Slot FLow. Local workflow engine with human-in-the-loop inspired by slot-filling in NLP."
 authors = [
     { name = "alexjuda", email = "alexanderjuda@gmail.com" }
 ]
@@ -12,7 +12,7 @@ readme = "README.md"
 requires-python = ">= 3.8"
 
 [project.scripts]
-"slot-machine" = "slot_machine:main"
+"slfl" = "slfl:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -29,4 +29,4 @@ dev-dependencies = [
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/slot_machine"]
+packages = ["src/slfl"]

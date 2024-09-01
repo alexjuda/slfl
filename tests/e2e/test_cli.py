@@ -51,7 +51,7 @@ class TestCLI:
         monkeypatch.chdir(tmp_proj.proj_dir)
 
         out, _ = _run_cmd(
-            ["slot-machine", str(tmp_proj.relative_tasks_file)], input="1234"
+            ["slfl", str(tmp_proj.relative_tasks_file)], input="1234"
         )
 
         assert "1. Go to" in out

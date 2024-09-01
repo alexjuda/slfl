@@ -1,5 +1,5 @@
 import math
-from slot_machine import task
+from slfl import task
 
 
 @task()

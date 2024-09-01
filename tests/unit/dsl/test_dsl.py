@@ -1,7 +1,7 @@
 from pathlib import Path
 from pytest import MonkeyPatch, fixture
 from freezegun import freeze_time
-from slot_machine._dsl import (
+from slfl._dsl import (
     find_tasks_in_module,
     get_memory_dir,
     gen_job_id,
