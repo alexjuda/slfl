@@ -1,5 +1,5 @@
 import math
-from sfl import task
+from slfl import task
 
 
 @task()

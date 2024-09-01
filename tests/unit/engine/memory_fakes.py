@@ -1,5 +1,5 @@
 from typing import Any
-from sfl.engine import SlotID
+from slfl.engine import SlotID
 
 
 class DictMemory:
