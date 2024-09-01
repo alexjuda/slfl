@@ -1,7 +1,7 @@
 [project]
 name = "sfl"
 version = "0.1.0"
-description = "Slot FLow. Local workflow engine with human-in-the-loop based on slot-filling."
+description = "Slot FLow. Local workflow engine with human-in-the-loop inspired by slot-filling in NLP."
 authors = [
     { name = "alexjuda", email = "alexanderjuda@gmail.com" }
 ]
