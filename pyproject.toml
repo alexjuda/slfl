@@ -1,7 +1,7 @@
 [project]
-name = "slot-machine"
+name = "sfl"
 version = "0.1.0"
-description = "Add your description here"
+description = "Slot FLow. Local workflow engine with human-in-the-loop based on slot-filling."
 authors = [
     { name = "alexjuda", email = "alexanderjuda@gmail.com" }
 ]
@@ -12,7 +12,7 @@ readme = "README.md"
 requires-python = ">= 3.8"
 
 [project.scripts]
-"slot-machine" = "slot_machine:main"
+"slot-machine" = "sfl:main"
 
 [build-system]
 requires = ["hatchling"]
