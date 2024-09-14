@@ -1,14 +1,18 @@
+import logging
 import shutil
 import sys
 from pathlib import Path
-from pytest import MonkeyPatch, fixture
+
 from freezegun import freeze_time
+from pytest import LogCaptureFixture, MonkeyPatch, fixture
 from slfl._dsl import (
     find_tasks_in_module,
     get_memory_dir,
     gen_job_id,
     load_module_file,
+    resolve_job_id,
 )
+
 from ...example_proj.sample import tasks as sample_tasks
 
 
@@ -30,6 +34,47 @@ class TestLoadModuleFile:
         assert module is not None
         assert "amount_transfered_to_main" in dir(module)
         assert sys.path == starting_sys_path, "Shouldn't alter global sys.path"
+
+
+class TestResolveJobID:
+    @staticmethod
+    def test_id_not_passed(caplog: LogCaptureFixture):
+        # Given
+        tasks_file = Path("tasks/sample.py")
+        memory_dir = Path("memory")
+        job_id = None
+
+        with caplog.at_level(logging.INFO):
+            # When
+            resolved = resolve_job_id(
+                tasks_file=tasks_file,
+                memory_dir=memory_dir,
+                job_id=job_id,
+            )
+
+        # Then
+        assert resolved is not None
+        assert tasks_file.stem in resolved
+        assert "Starting" in caplog.text
+
+    @staticmethod
+    def test_id_passed(caplog: LogCaptureFixture):
+        # Given
+        tasks_file = Path("tasks/sample.py")
+        memory_dir = Path("memory")
+        job_id = "foo-123"
+
+        with caplog.at_level(logging.INFO):
+            # When
+            resolved = resolve_job_id(
+                tasks_file=tasks_file,
+                memory_dir=memory_dir,
+                job_id=job_id,
+            )
+
+        # Then
+        assert resolved == job_id
+        assert "Resuming" in caplog.text
 
 
 class TestFindTasksInModule:

@@ -78,18 +78,25 @@ def load_module_file(file_path: Path) -> ModuleType:
     return module
 
 
+def resolve_job_id(tasks_file: Path, memory_dir: Path, job_id: JobID | None) -> JobID:
+    if job_id is not None:
+        LOG.info("Resuming job %s", job_id)
+        return job_id
+    else:
+        resolved_job_id = gen_job_id(tasks_file, memory_dir=memory_dir)
+        LOG.info("Starting a new job %s", resolved_job_id)
+        return resolved_job_id
+
+
 def exec_all(tasks_file: Path, job_id: JobID | None):
     module = load_module_file(tasks_file)
     tasks = find_tasks_in_module(module)
 
     memory_dir = get_memory_dir()
-    if job_id is not None:
-        resolved_job_id = job_id
-        LOG.info("Resuming job %s", resolved_job_id)
-    else:
-        resolved_job_id = gen_job_id(tasks_file, memory_dir=memory_dir)
-        LOG.info("Starting a new job %s", resolved_job_id)
 
+    resolved_job_id = resolve_job_id(
+        tasks_file=tasks_file, memory_dir=memory_dir, job_id=job_id
+    )
     memory = YamlMemory.for_job(dir_path=memory_dir, job_id=resolved_job_id)
 
     runner = Runner(tasks=tasks, memory=memory)
