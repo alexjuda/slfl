@@ -42,14 +42,14 @@ class TestResolveJobID:
         # Given
         tasks_file = Path("tasks/sample.py")
         memory_dir = Path("memory")
-        job_id = None
+        memory_file = None
 
         with caplog.at_level(logging.INFO):
             # When
             resolved = resolve_job_id(
                 tasks_file=tasks_file,
                 memory_dir=memory_dir,
-                job_id=job_id,
+                memory_file=memory_file,
             )
 
         # Then
@@ -62,18 +62,18 @@ class TestResolveJobID:
         # Given
         tasks_file = Path("tasks/sample.py")
         memory_dir = Path("memory")
-        job_id = "foo-123"
+        memory_file = Path("memory/foo-123.yaml")
 
         with caplog.at_level(logging.INFO):
             # When
             resolved = resolve_job_id(
                 tasks_file=tasks_file,
                 memory_dir=memory_dir,
-                job_id=job_id,
+                memory_file=memory_file,
             )
 
         # Then
-        assert resolved == job_id
+        assert resolved == "foo-123"
         assert "Resuming" in caplog.text
 
 
