@@ -74,7 +74,7 @@ class TestResolveJobID:
 
         # Then
         assert resolved == "foo-123"
-        assert "Resuming" in caplog.text
+        assert "Resuming job foo-123" in caplog.text
 
 
 class TestFindTasksInModule:

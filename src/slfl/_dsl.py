@@ -83,7 +83,7 @@ def resolve_job_id(
 ) -> JobID:
     if memory_file is not None:
         job_id = memory_file.stem
-        LOG.info("Resuming job %s", memory_file)
+        LOG.info("Resuming job %s", job_id)
         return job_id
     else:
         job_id = gen_job_id(tasks_file, memory_dir=memory_dir)
