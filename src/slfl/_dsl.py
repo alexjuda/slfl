@@ -71,9 +71,15 @@ def _prepend_to_path(sys_path: list[str], addition: str):
         sys_path[:] = orig_path
 
 
+def load_module_file(file_path: Path) -> ModuleType:
+    with _prepend_to_path(sys.path, addition=str(file_path.parent)):
+        module = importlib.import_module(file_path.stem, None)
+
+    return module
+
+
 def exec_all(tasks_file: Path, job_id: JobID | None):
-    with _prepend_to_path(sys.path, addition=str(tasks_file.parent)):
-        module = importlib.import_module(tasks_file.stem, None)
+    module = load_module_file(tasks_file)
     tasks = find_tasks_in_module(module)
 
     memory_dir = get_memory_dir()

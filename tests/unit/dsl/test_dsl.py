@@ -1,3 +1,5 @@
+import shutil
+import sys
 from pathlib import Path
 from pytest import MonkeyPatch, fixture
 from freezegun import freeze_time
@@ -5,8 +7,29 @@ from slfl._dsl import (
     find_tasks_in_module,
     get_memory_dir,
     gen_job_id,
+    load_module_file,
 )
 from ...example_proj.sample import tasks as sample_tasks
+
+
+class TestLoadModuleFile:
+    @staticmethod
+    def test_sample_file(tmp_path: Path):
+        # Given
+        starting_sys_path = list(sys.path)
+        tasks_dir = tmp_path / "tasks"
+        tasks_dir.mkdir()
+
+        tasks_file = tasks_dir / "tasks_file.py"
+        shutil.copy(sample_tasks.__file__, tasks_file)
+
+        # When
+        module = load_module_file(tasks_file)
+
+        # Then
+        assert module is not None
+        assert "amount_transfered_to_main" in dir(module)
+        assert sys.path == starting_sys_path, "Shouldn't alter global sys.path"
 
 
 class TestFindTasksInModule:
